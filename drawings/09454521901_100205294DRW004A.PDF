@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>Request rejected</title>            
+</head>
+<body style="font-family: Arial; font-size: 10pt">
+<br><br>
+<img src="/ebusiness/zharting/mimes/images/harting-logo.gif" alt="Grafik"><br><br>
+The requested URL could not be found. <br>To optimize the support process please use the following link to open a call <br> and to inform us on this issue:
+<br><br>
+<a href ="mailto:it-isns@harting.com?subject=ASM solution request: eCatalogue system error message - Support-ID: 4239877343977883573
+&body=While using the HARTING eCatalogue I received an error message with the following Support-ID: 4239877343977883573">
+Send eMail</a>
+<br><br>
+In case the link above does not work please send an eMail to <br><br>it-isns@harting.com <br><br> by using Support-ID: 4239877343977883573
+<br><br>
+<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+</body>
+</html>
