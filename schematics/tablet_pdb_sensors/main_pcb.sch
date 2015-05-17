@@ -2205,7 +2205,7 @@ Standard 8.5x11 US Letter frame</description>
 <part name="CON3HV" library="pinhead" deviceset="PINHD-1X6" device=""/>
 <part name="CON4" library="pinhead" deviceset="PINHD-1X8" device=""/>
 <part name="CHARGE" library="pinhead" deviceset="PINHD-1X2" device=""/>
-<part name="JP9" library="pinhead" deviceset="PINHD-1X4" device=""/>
+<part name="CON5" library="pinhead" deviceset="PINHD-1X4" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -2215,14 +2215,14 @@ Standard 8.5x11 US Letter frame</description>
 <instance part="Q1" gate="G$1" x="12.7" y="27.94"/>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
 <instance part="FRAME1" gate="V" x="147.32" y="0"/>
-<instance part="CON1" gate="A" x="48.26" y="104.14"/>
-<instance part="CON2L" gate="A" x="76.2" y="160.02"/>
-<instance part="CON2R" gate="A" x="76.2" y="144.78"/>
+<instance part="CON1" gate="A" x="48.26" y="101.6"/>
+<instance part="CON2L" gate="A" x="172.72" y="127" rot="MR0"/>
+<instance part="CON2R" gate="A" x="165.1" y="127"/>
 <instance part="CON3LV" gate="A" x="93.98" y="99.06"/>
 <instance part="CON3HV" gate="A" x="104.14" y="99.06" rot="MR0"/>
 <instance part="CON4" gate="A" x="165.1" y="96.52"/>
-<instance part="CHARGE" gate="G$1" x="63.5" y="58.42"/>
-<instance part="JP9" gate="A" x="83.82" y="58.42"/>
+<instance part="CHARGE" gate="G$1" x="93.98" y="58.42"/>
+<instance part="CON5" gate="A" x="104.14" y="58.42" rot="MR0"/>
 </instances>
 <busses>
 </busses>
@@ -2230,43 +2230,46 @@ Standard 8.5x11 US Letter frame</description>
 <net name="CON2_GND" class="0">
 <segment>
 <pinref part="CON2L" gate="A" pin="2"/>
-<wire x1="73.66" y1="160.02" x2="66.04" y2="160.02" width="0.1524" layer="91"/>
-<label x="55.88" y="160.02" size="1.778" layer="95"/>
+<wire x1="175.26" y1="127" x2="182.88" y2="127" width="0.1524" layer="91"/>
+<label x="180.34" y="127" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="CON2_VCC" class="0">
 <segment>
 <pinref part="CON2L" gate="A" pin="1"/>
-<wire x1="73.66" y1="162.56" x2="66.04" y2="162.56" width="0.1524" layer="91"/>
-<label x="55.88" y="162.56" size="1.778" layer="95"/>
+<wire x1="175.26" y1="129.54" x2="182.88" y2="129.54" width="0.1524" layer="91"/>
+<label x="180.34" y="129.54" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="CON2_ALT" class="0">
 <segment>
 <pinref part="CON2L" gate="A" pin="3"/>
-<wire x1="73.66" y1="157.48" x2="66.04" y2="157.48" width="0.1524" layer="91"/>
-<label x="55.88" y="157.48" size="1.778" layer="95"/>
+<wire x1="175.26" y1="124.46" x2="182.88" y2="124.46" width="0.1524" layer="91"/>
+<label x="180.34" y="124.46" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="CON2_SDA" class="0">
+<net name="HV_I2C.SDA" class="0">
 <segment>
 <pinref part="CON2R" gate="A" pin="1"/>
-<wire x1="73.66" y1="147.32" x2="66.04" y2="147.32" width="0.1524" layer="91"/>
-<label x="55.88" y="147.32" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="CON2_SDL" class="0">
-<segment>
-<pinref part="CON2R" gate="A" pin="2"/>
-<wire x1="73.66" y1="144.78" x2="66.04" y2="144.78" width="0.1524" layer="91"/>
-<label x="55.88" y="144.78" size="1.778" layer="95"/>
+<label x="144.78" y="129.54" size="1.778" layer="95"/>
+<pinref part="CON3HV" gate="A" pin="3"/>
+<label x="111.76" y="101.6" size="1.778" layer="95"/>
+<wire x1="106.68" y1="101.6" x2="134.62" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="101.6" x2="134.62" y2="104.14" width="0.1524" layer="91"/>
+<pinref part="CON4" gate="A" pin="2"/>
+<label x="144.78" y="104.14" size="1.778" layer="95"/>
+<wire x1="134.62" y1="104.14" x2="139.7" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="104.14" x2="162.56" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="129.54" x2="139.7" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="129.54" x2="139.7" y2="104.14" width="0.1524" layer="91"/>
+<junction x="139.7" y="104.14"/>
 </segment>
 </net>
 <net name="CON2_QST" class="0">
 <segment>
 <pinref part="CON2R" gate="A" pin="3"/>
-<wire x1="73.66" y1="142.24" x2="66.04" y2="142.24" width="0.1524" layer="91"/>
-<label x="55.88" y="142.24" size="1.778" layer="95"/>
+<wire x1="162.56" y1="124.46" x2="154.94" y2="124.46" width="0.1524" layer="91"/>
+<label x="144.78" y="124.46" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LV_VCC" class="0">
@@ -2274,12 +2277,12 @@ Standard 8.5x11 US Letter frame</description>
 <pinref part="CON3LV" gate="A" pin="1"/>
 <wire x1="91.44" y1="106.68" x2="73.66" y2="106.68" width="0.1524" layer="91"/>
 <label x="76.2" y="106.68" size="1.778" layer="95"/>
-<wire x1="73.66" y1="106.68" x2="73.66" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="81.28" x2="30.48" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="81.28" x2="30.48" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="106.68" x2="73.66" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="78.74" x2="30.48" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="78.74" x2="30.48" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="CON1" gate="A" pin="29"/>
-<wire x1="30.48" y1="86.36" x2="45.72" y2="86.36" width="0.1524" layer="91"/>
-<label x="30.48" y="86.36" size="1.778" layer="95"/>
+<wire x1="30.48" y1="83.82" x2="45.72" y2="83.82" width="0.1524" layer="91"/>
+<label x="30.48" y="83.82" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LV_GND" class="0">
@@ -2287,21 +2290,10 @@ Standard 8.5x11 US Letter frame</description>
 <pinref part="CON3LV" gate="A" pin="6"/>
 <wire x1="91.44" y1="93.98" x2="76.2" y2="93.98" width="0.1524" layer="91"/>
 <label x="76.2" y="93.98" size="1.778" layer="95"/>
-<wire x1="76.2" y1="93.98" x2="76.2" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="93.98" x2="76.2" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="CON1" gate="A" pin="30"/>
-<label x="58.42" y="86.36" size="1.778" layer="95"/>
-<wire x1="76.2" y1="86.36" x2="53.34" y2="86.36" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="HV_VCC" class="0">
-<segment>
-<pinref part="CON3HV" gate="A" pin="1"/>
-<wire x1="106.68" y1="106.68" x2="129.54" y2="106.68" width="0.1524" layer="91"/>
-<label x="111.76" y="106.68" size="1.778" layer="95"/>
-<wire x1="129.54" y1="106.68" x2="129.54" y2="91.44" width="0.1524" layer="91"/>
-<pinref part="CON4" gate="A" pin="7"/>
-<label x="144.78" y="91.44" size="1.778" layer="95"/>
-<wire x1="129.54" y1="91.44" x2="162.56" y2="91.44" width="0.1524" layer="91"/>
+<label x="58.42" y="83.82" size="1.778" layer="95"/>
+<wire x1="76.2" y1="83.82" x2="53.34" y2="83.82" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="B4" class="0">
@@ -2317,7 +2309,13 @@ Standard 8.5x11 US Letter frame</description>
 <label x="111.76" y="93.98" size="1.778" layer="95"/>
 <pinref part="CON4" gate="A" pin="6"/>
 <label x="144.78" y="93.98" size="1.778" layer="95"/>
-<wire x1="106.68" y1="93.98" x2="162.56" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="93.98" x2="127" y2="93.98" width="0.1524" layer="91"/>
+<pinref part="CON5" gate="A" pin="3"/>
+<wire x1="127" y1="93.98" x2="162.56" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="58.42" x2="127" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="127" y1="58.42" x2="127" y2="93.98" width="0.1524" layer="91"/>
+<junction x="127" y="93.98"/>
+<label x="111.76" y="58.42" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="I2" class="0">
@@ -2355,57 +2353,92 @@ Standard 8.5x11 US Letter frame</description>
 <net name="VIN" class="0">
 <segment>
 <pinref part="CHARGE" gate="G$1" pin="1"/>
-<wire x1="60.96" y1="60.96" x2="50.8" y2="60.96" width="0.1524" layer="91"/>
-<label x="48.26" y="60.96" size="1.778" layer="95"/>
+<wire x1="91.44" y1="60.96" x2="81.28" y2="60.96" width="0.1524" layer="91"/>
+<label x="78.74" y="60.96" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="GND" class="0">
 <segment>
 <pinref part="CHARGE" gate="G$1" pin="2"/>
-<wire x1="60.96" y1="58.42" x2="50.8" y2="58.42" width="0.1524" layer="91"/>
-<label x="48.26" y="58.42" size="1.778" layer="95"/>
+<wire x1="91.44" y1="58.42" x2="81.28" y2="58.42" width="0.1524" layer="91"/>
+<label x="78.74" y="58.42" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LV_I2C.SCL" class="0">
 <segment>
-<pinref part="CON1" gate="A" pin="14"/>
-<wire x1="53.34" y1="106.68" x2="68.58" y2="106.68" width="0.1524" layer="91"/>
-<wire x1="68.58" y1="106.68" x2="68.58" y2="104.14" width="0.1524" layer="91"/>
 <pinref part="CON3LV" gate="A" pin="2"/>
-<wire x1="68.58" y1="104.14" x2="91.44" y2="104.14" width="0.1524" layer="91"/>
-<label x="58.42" y="106.68" size="1.778" layer="95"/>
+<wire x1="53.34" y1="104.14" x2="91.44" y2="104.14" width="0.1524" layer="91"/>
+<pinref part="CON1" gate="A" pin="14"/>
+<label x="58.42" y="104.14" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LV_I2C.SDA" class="0">
 <segment>
-<pinref part="CON1" gate="A" pin="16"/>
-<wire x1="53.34" y1="104.14" x2="66.04" y2="104.14" width="0.1524" layer="91"/>
-<wire x1="66.04" y1="104.14" x2="66.04" y2="101.6" width="0.1524" layer="91"/>
 <pinref part="CON3LV" gate="A" pin="3"/>
-<wire x1="66.04" y1="101.6" x2="91.44" y2="101.6" width="0.1524" layer="91"/>
-<label x="58.42" y="104.14" size="1.778" layer="95"/>
+<wire x1="53.34" y1="101.6" x2="91.44" y2="101.6" width="0.1524" layer="91"/>
+<pinref part="CON1" gate="A" pin="16"/>
+<label x="58.42" y="101.6" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="CON4_SCL" class="0">
+<net name="PS" class="0">
 <segment>
+<pinref part="CON5" gate="A" pin="1"/>
+<wire x1="106.68" y1="63.5" x2="116.84" y2="63.5" width="0.1524" layer="91"/>
+<label x="111.76" y="63.5" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="EN" class="0">
+<segment>
+<pinref part="CON5" gate="A" pin="4"/>
+<wire x1="106.68" y1="55.88" x2="116.84" y2="55.88" width="0.1524" layer="91"/>
+<label x="111.76" y="55.88" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="HV_VCC" class="0">
+<segment>
+<pinref part="CON5" gate="A" pin="2"/>
+<pinref part="CON3HV" gate="A" pin="1"/>
+<wire x1="106.68" y1="106.68" x2="129.54" y2="106.68" width="0.1524" layer="91"/>
+<label x="111.76" y="106.68" size="1.778" layer="95"/>
+<wire x1="129.54" y1="106.68" x2="129.54" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="CON4" gate="A" pin="7"/>
+<label x="144.78" y="91.44" size="1.778" layer="95"/>
+<wire x1="129.54" y1="91.44" x2="162.56" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="60.96" x2="129.54" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="60.96" x2="129.54" y2="91.44" width="0.1524" layer="91"/>
+<junction x="129.54" y="91.44"/>
+<label x="111.76" y="60.96" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="A4" class="0">
+<segment>
+<pinref part="CON3LV" gate="A" pin="5"/>
+<wire x1="91.44" y1="96.52" x2="76.2" y2="96.52" width="0.1524" layer="91"/>
+<label x="76.2" y="96.52" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LV_DRDY" class="0">
+<segment>
+<pinref part="CON3LV" gate="A" pin="4"/>
+<wire x1="91.44" y1="99.06" x2="76.2" y2="99.06" width="0.1524" layer="91"/>
+<label x="76.2" y="99.06" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="HV_I2C.SDL" class="0">
+<segment>
+<pinref part="CON2R" gate="A" pin="2"/>
+<label x="144.78" y="127" size="1.778" layer="95"/>
 <pinref part="CON3HV" gate="A" pin="2"/>
 <label x="111.76" y="104.14" size="1.778" layer="95"/>
 <wire x1="106.68" y1="104.14" x2="132.08" y2="104.14" width="0.1524" layer="91"/>
 <wire x1="132.08" y1="104.14" x2="132.08" y2="106.68" width="0.1524" layer="91"/>
 <pinref part="CON4" gate="A" pin="1"/>
 <label x="144.78" y="106.68" size="1.778" layer="95"/>
-<wire x1="132.08" y1="106.68" x2="162.56" y2="106.68" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="CON4_SDA" class="0">
-<segment>
-<pinref part="CON3HV" gate="A" pin="3"/>
-<label x="111.76" y="101.6" size="1.778" layer="95"/>
-<wire x1="106.68" y1="101.6" x2="134.62" y2="101.6" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="101.6" x2="134.62" y2="104.14" width="0.1524" layer="91"/>
-<pinref part="CON4" gate="A" pin="2"/>
-<label x="144.78" y="104.14" size="1.778" layer="95"/>
-<wire x1="134.62" y1="104.14" x2="162.56" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="106.68" x2="142.24" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="106.68" x2="162.56" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="127" x2="142.24" y2="127" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="127" x2="142.24" y2="106.68" width="0.1524" layer="91"/>
+<junction x="142.24" y="106.68"/>
 </segment>
 </net>
 </nets>
