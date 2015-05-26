@@ -1,7 +1,7 @@
 #!/bin/bash
 #qemu
 #bindfs
-#binfmt_misc
+#wget
 
 MAKEOPTS=-j12
 
@@ -42,14 +42,10 @@ EOF
     sudo mkfs.ext4 /dev/nbd0p2
 
     echo Mounting partitions...
-    MOUNTOPTS="-u $(id -u) -g $(id -g)"
-    sudo mkdir -p root/$MOUNT
-    sudo mount /dev/nbd0p2 root/$MOUNT
-    sudo mkdir -p root/$MOUNT/boot
-    sudo mount /dev/nbd0p1 root/$MOUNT/boot -o uid=$(id -u) -o gid=$(id -g)
-    mkdir -p $MOUNT
-    mkdir -p $MOUNT/boot
-    sudo bindfs $MOUNTOPTS root/$MOUNT $MOUNT
+    sudo mkdir -p $MOUNT
+    sudo mount /dev/nbd0p2 $MOUNT
+    sudo mkdir -p $MOUNT/boot
+    sudo mount /dev/nbd0p1 $MOUNT/boot
 }
 
 umount-qcow2()
@@ -61,9 +57,8 @@ umount-qcow2()
     IMG=$1
     MOUNT=$2
     echo Unmounting partitions...
-    sudo umount $MOUNT/boot $MOUNT
     sync
-    sudo umount root/$MOUNT/boot root/$MOUNT
+    sudo umount $MOUNT/boot $MOUNT
     sync
 
     echo Unmounting image...
@@ -81,26 +76,64 @@ mkimage()
     mount-qcow2 cleanInstall.qcow2 clean
 
     echo Downloading image...
-    wget http://archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+    #wget http://archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
 
     echo Installing image...
-    bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C clean
+    sudo bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C clean
 
+    echo Installing QEMU...
+    sudo mkdir -p clean/usr/bin
+    sudo cp /usr/bin/qemu-arm-static clean/usr/bin/qemu-arm-static
+
+    echo Binding paths...
+    sudo mount --bind /dev clean/dev
+    sudo mount --bind /dev/pts clean/dev/pts
+    sudo mount --bind /dev/shm clean/dev/shm
+    sudo mount --bind /proc clean/proc
+    sudo mount --bind /sys clean/sys
+
+    echo CHROOT!
+    sudo chroot clean /bin/bash
+
+    sudo umount clean/dev/pts
+    sudo umount clean/dev/shm
+    sudo umount clean/dev
+    sudo umount clean/proc
+    sudo umount clean/sys
+
+    echo Unmounting snapshot...
     umount-qcow2 cleanInstall.qcow2 clean
-
-    echo Building snapshot image...
-    qemu-img create -f qcow2 -b cleanInstall.qcow2 snapshot.qcow2
 }
 
 install-tools()
 {
-    if [[ ! -d "qemu" ]]; then
-       git clone --depth=1 git://git.savannah.nongnu.org/qemu.git
-    fi
-    pushd qemu
-    ./configure --disable-kvm --target-list=arm-linux-user --static
-    make $MAKEOPTS
-    echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/local/bin/qemu-arm-static:' > /proc/sys/fs/binfmt_misc/register
+    wget https://aur.archlinux.org/packages/qe/qemu-static/qemu-static.tar.gz
+    wget https://aur.archlinux.org/packages/gl/glib2-static/glib2-static.tar.gz
+    wget https://aur.archlinux.org/packages/gl/glibc-static/glibc-static.tar.gz
+    wget https://aur.archlinux.org/packages/pc/pcre-static/pcre-static.tar.gz
+    tar xvf qemu-static.tar.gz
+    tar xvf glib2-static.tar.gz
+    tar xvf glibc-static.tar.gz
+    tar xvf pcre-static.tar.gz
+    pushd glibc-static
+        makepkg --skippgpcheck
+    popd
+    pushd glib2-static
+        makepkg --skippgpcheck
+    popd
+    pushd pcre-static
+        makepkg --skippgpcheck
+    popd
+    sudo pacman --noconfirm -U glibc-static/glibc-static-2.21-1-x86_64.pkg.tar.xz \
+	 glib2-static/glib2-static-2.44.0-1-x86_64.pkg.tar.xz \
+	 pcre-static/pcre-static-8.36-1-x86_64.pkg.tar.xz
+    pushd qemu-static
+        makepkg
+    popd
+    sudo pacman -U qemu-static/qemu-static-2.3.0-1-x86_64.pkg.tar.xz
+    sudo sh <<EOF
+    echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm-static:' > /proc/sys/fs/binfmt_misc/register
+EOF
 }
 
 case "$1" in
